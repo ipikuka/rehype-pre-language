@@ -1,0 +1,78 @@
+{
+  "name": "rehype-pre-language",
+  "version": "0.0.9",
+  "description": "Rehype plugin to add language information as a property to pre element",
+  "type": "module",
+  "exports": "./dist/esm/index.js",
+  "main": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "type-coverage": "type-coverage --ignoreAsAssertion",
+    "lint": "eslint .",
+    "prettier": "prettier --write .",
+    "test": "vitest",
+    "test:ci": "vitest --watch=false",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm run test:ci && npm run type-coverage && npm run prettier && npm run lint"
+  },
+  "files": [
+    "dist/",
+    "src/",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ipikuka/rehype-pre-language.git"
+  },
+  "keywords": [
+    "unified",
+    "hast",
+    "rehype",
+    "markdown",
+    "plugin",
+    "rehype-plugin",
+    "rehype-pre",
+    "rehype-pre-language"
+  ],
+  "author": "ipikuka <talatkuyuk@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/ipikuka/rehype-pre-language#readme",
+  "bugs": {
+    "url": "https://github.com/ipikuka/rehype-pre-language/issues"
+  },
+  "devDependencies": {
+    "@types/dedent": "^0.7.2",
+    "@types/node": "^20.10.5",
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "@typescript-eslint/parser": "^6.16.0",
+    "dedent": "^0.7.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.2",
+    "prettier": "^3.1.1",
+    "rehype-stringify": "^10.0.0",
+    "remark-gfm": "^4.0.0",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.0.0",
+    "rimraf": "^5.0.5",
+    "type-coverage": "^2.27.1",
+    "typescript": "^5.3.3",
+    "unified": "^11.0.4",
+    "vfile": "^6.0.1",
+    "vitest": "^1.3.0"
+  },
+  "dependencies": {
+    "@types/hast": "^3.0.4",
+    "hast-util-has-property": "^3.0.0",
+    "unist-util-visit": "^5.0.0"
+  },
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "ignoreCatch": true,
+    "strict": true
+  },
+  "sideEffects": false
+}
