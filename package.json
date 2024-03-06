@@ -1,6 +1,6 @@
 {
   "name": "rehype-pre-language",
-  "version": "0.0.9",
+  "version": "1.0.0",
   "description": "Rehype plugin to add language information as a property to pre element",
   "type": "module",
   "exports": "./dist/esm/index.js",
