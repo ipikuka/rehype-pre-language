@@ -4,6 +4,8 @@
 [![Build][github-build]][github-build-url]
 ![npm-typescript]
 [![License][github-license]][github-license-url]
+[![codecov](https://codecov.io/gh/ipikuka/rehype-pre-language/graph/badge.svg?token=o3TGkL4yUV)](https://codecov.io/gh/ipikuka/rehype-pre-language)
+[![type-coverage](https://img.shields.io/badge/dynamic/json.svg?label=type-coverage&prefix=%E2%89%A5&suffix=%&query=$.typeCoverage.atLeast&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fipikuka%2Frehype-pre-language%2Fmaster%2Fpackage.json)](https://github.com/ipikuka/rehype-pre-language)
 
 This package is a [unified][unified] ([rehype][rehype]) plugin **to add language information as a property to pre element** (compatible with new parser "[micromark][micromark]").
 
