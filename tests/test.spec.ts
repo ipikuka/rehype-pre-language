@@ -3,81 +3,85 @@ import dedent from "dedent";
 
 import { process } from "./util/index";
 
-const sourceWithLanguage = dedent`
-  \`\`\`javascript
-  console.log("ipikuka");
-  \`\`\`
-`;
-
-const sourceDiffLanguage = dedent`
-  \`\`\`diff-javascript
-  console.log("ipikuka");
-  \`\`\`
-`;
-
-const sourceNoLanguage = dedent`
-  \`\`\`
-  console.log("ipikuka");
-  \`\`\`
-`;
-
 describe("reyhpe-pre-language", () => {
   // ******************************************
-  it("with no option", async () => {
-    expect(String(await process(sourceWithLanguage))).toMatchInlineSnapshot(`
+  it("effectless for inline codes", async () => {
+    expect(String(await process("`Hi`\n\n> blockquote"))).toMatchInlineSnapshot(`
+      "<p><code>Hi</code></p>
+      <blockquote>
+      <p>blockquote</p>
+      </blockquote>"
+    `);
+  });
+
+  // ******************************************
+  it("with language", async () => {
+    const input = dedent`
+      \`\`\`javascript
+      console.log("ipikuka");
+      \`\`\`
+    `;
+
+    expect(String(await process(input))).toMatchInlineSnapshot(`
       "<pre class="javascript"><code class="language-javascript">console.log("ipikuka");
       </code></pre>"
     `);
 
-    expect(String(await process(sourceDiffLanguage))).toMatchInlineSnapshot(`
-      "<pre class="javascript"><code class="language-diff-javascript">console.log("ipikuka");
+    expect(String(await process(input, "className"))).toMatchInlineSnapshot(`
+      "<pre class="javascript"><code class="language-javascript">console.log("ipikuka");
       </code></pre>"
     `);
 
-    expect(String(await process(sourceNoLanguage))).toMatchInlineSnapshot(`
-      "<pre><code>console.log("ipikuka");
-      </code></pre>"
-    `);
-  });
-
-  // ******************************************
-  it("with an option", async () => {
-    expect(String(await process(sourceWithLanguage, "data-language"))).toMatchInlineSnapshot(`
+    expect(String(await process(input, "data-language"))).toMatchInlineSnapshot(`
       "<pre data-language="javascript"><code class="language-javascript">console.log("ipikuka");
       </code></pre>"
     `);
+  });
 
-    expect(String(await process(sourceDiffLanguage, "data-language"))).toMatchInlineSnapshot(`
-      "<pre data-language="javascript"><code class="language-diff-javascript">console.log("ipikuka");
+  // ******************************************
+  it("with language with diff", async () => {
+    const input = dedent`
+      \`\`\`diff-python
+      print("ipikuka");
+      \`\`\`
+    `;
+
+    expect(String(await process(input))).toMatchInlineSnapshot(`
+      "<pre class="python"><code class="language-diff-python">print("ipikuka");
       </code></pre>"
     `);
 
-    expect(String(await process(sourceNoLanguage, "data-language"))).toMatchInlineSnapshot(`
-      "<pre><code>console.log("ipikuka");
+    expect(String(await process(input, "className"))).toMatchInlineSnapshot(`
+      "<pre class="python"><code class="language-diff-python">print("ipikuka");
+      </code></pre>"
+    `);
+
+    expect(String(await process(input, "data-language"))).toMatchInlineSnapshot(`
+      "<pre data-language="python"><code class="language-diff-python">print("ipikuka");
       </code></pre>"
     `);
   });
 
   // ******************************************
-  it("example in the README", async () => {
-    const example = dedent`
-      \`\`\`javascript
-      const me = "ipikuka";
+  it("with no language", async () => {
+    const input = dedent`
+      \`\`\`
+      content
       \`\`\`
     `;
 
-    expect(String(await process(example))).toMatchInlineSnapshot(`
-      "<pre class="javascript"><code class="language-javascript">const me = "ipikuka";
+    expect(String(await process(input))).toMatchInlineSnapshot(`
+      "<pre><code>content
       </code></pre>"
     `);
 
-    expect(String(await process(example, "className"))).toMatchInlineSnapshot(`
-      "<pre class="javascript"><code class="language-javascript">const me = "ipikuka";
+    expect(String(await process(input, "className"))).toMatchInlineSnapshot(`
+      "<pre><code>content
       </code></pre>"
     `);
 
-    expect(String(await process(example, "data-language"))).toMatchInlineSnapshot(`
-      "<pre data-language="javascript"><code class="language-javascript">const me = "ipikuka";
+    expect(String(await process(input, "data-language"))).toMatchInlineSnapshot(`
+      "<pre><code>content
       </code></pre>"
     `);
   });
