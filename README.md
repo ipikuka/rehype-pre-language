@@ -1,17 +1,18 @@
 # rehype-pre-language
 
-[![NPM version][npm-image]][npm-url]
-[![Build][github-build]][github-build-url]
-![npm-typescript]
-[![License][github-license]][github-license-url]
+[![NPM version][badge-npm-version]][npm-package-url]
+[![NPM downloads][badge-npm-download]][npm-package-url]
+[![Build][badge-build]][github-workflow-url]
 [![codecov](https://codecov.io/gh/ipikuka/rehype-pre-language/graph/badge.svg?token=o3TGkL4yUV)](https://codecov.io/gh/ipikuka/rehype-pre-language)
 [![type-coverage](https://img.shields.io/badge/dynamic/json.svg?label=type-coverage&prefix=%E2%89%A5&suffix=%&query=$.typeCoverage.atLeast&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fipikuka%2Frehype-pre-language%2Fmaster%2Fpackage.json)](https://github.com/ipikuka/rehype-pre-language)
+[![typescript][badge-typescript]][typescript-url]
+[![License][badge-license]][github-license-url]
 
-This package is a [unified][unified] ([rehype][rehype]) plugin **to add language information as a property to pre element** (compatible with new parser "[micromark][micromark]").
+This package is a [unified][unified] ([rehype][rehype]) plugin **to add language information of `<code>` element into `<pre>` element as a property**.
 
-"**unified**" is a project that transforms content with abstract syntax trees (ASTs). "**rehype**" is a tool that transforms HTML with plugins. "**hast**" stands for HTML Abstract Syntax Tree (HAST) that rehype uses.
+**[unified][unified]** is a project that transforms content with abstract syntax trees (ASTs) using the new parser **[micromark][micromark]**. **[remark][remark]** adds support for markdown to unified. **[mdast][mdast]** is the Markdown Abstract Syntax Tree (AST) which is a specification for representing markdown in a syntax tree. "**rehype**" is a tool that transforms HTML with plugins. "**hast**" stands for HTML Abstract Syntax Tree (HAST) that rehype uses.
 
-**This plugin is a rehype plugin that adds language information into "className" of the `<pre />` element that has a `<code />` element inside if the `<code />` element's className contains a language information.**
+**This plugin finds the `<code>` elements in hast, takes the language information and adds the language into `<pre>` element as "className" property by default or as a property provided in options.**
 
 ## When should I use this?
 
@@ -68,15 +69,17 @@ async function main() {
 Now, running `node example.js` you see that the `<pre>` element has a "class" with language information:
 
 ```html
-<pre class="javascript"><code class="language-javascript">const me = "ipikuka";
-</code></pre>
+<pre class="javascript">
+  <code class="language-javascript">const me = "ipikuka";</code>
+</pre>
 ```
 
 Without `rehype-pre-language`, the `<pre>` element wouldn't have a language information:
 
 ```html
-<pre><code class="language-javascript">const me = "ipikuka";
-</code></pre>
+<pre>
+  <code class="language-javascript">const me = "ipikuka";</code>
+</pre>
 ```
 
 ## Options
@@ -108,19 +111,21 @@ This plugin modifies the `hast` (HTML abstract syntax tree).
 
 ## Types
 
-This package is fully typed with [TypeScript][typeScript].
+This package is fully typed with [TypeScript][typescript].
 
 The plugin exports the type `PreLanguageOption`.
 
 ## Compatibility
 
-This plugin works with unified version 6+ and remark version 7+.
+This plugin works with `rehype-parse` version 1+, `rehype-stringify` version 1+, `rehype` version 1+, and unified version `4+`.
 
 ## Security
 
 Use of `rehype-pre-language` involves rehype (hast), but doesn't lead to cross-site scripting (XSS) attacks.
 
 ## My Plugins
+
+I like to contribute the Unified / Remark / MDX ecosystem, so I recommend you to have a look my plugins.
 
 ### My Remark Plugins
 
@@ -135,7 +140,7 @@ Use of `rehype-pre-language` involves rehype (hast), but doesn't lead to cross-s
 - [`remark-flexible-markers`](https://www.npmjs.com/package/remark-flexible-markers)
   – Remark plugin to add custom `mark` element with customizable properties in markdown
 - [`remark-flexible-toc`](https://www.npmjs.com/package/remark-flexible-toc)
-  – Remark plugin to expose the table of contents via Vfile.data or via an option reference
+  – Remark plugin to expose the table of contents via `vfile.data` or via an option reference
 - [`remark-mdx-remove-esm`](https://www.npmjs.com/package/remark-mdx-remove-esm)
   – Remark plugin to remove import and/or export statements (mdxjsEsm)
 
@@ -153,28 +158,37 @@ Use of `rehype-pre-language` involves rehype (hast), but doesn't lead to cross-s
 
 ## License
 
-[MIT][license] © ipikuka
+[MIT License](./LICENSE) © ipikuka
 
 ### Keywords
 
-[unified][unifiednpm] [rehype][rehypenpm] [rehype-plugin][rehypepluginnpm] [hast][hastnpm] [markdown][markdownnpm]
+🟩 [unified][unifiednpm] 🟩 [rehype][rehypenpm] 🟩 [rehype plugin][rehypepluginnpm] 🟩 [hast][hastnpm] 🟩 [markdown][markdownnpm]
 
-[unified]: https://github.com/unifiedjs/unified
 [unifiednpm]: https://www.npmjs.com/search?q=keywords:unified
-[rehype]: https://github.com/rehypejs/rehype
 [rehypenpm]: https://www.npmjs.com/search?q=keywords:rehype
 [rehypepluginnpm]: https://www.npmjs.com/search?q=keywords:rehype%20plugin
-[hast]: https://github.com/syntax-tree/hast
 [hastnpm]: https://www.npmjs.com/search?q=keywords:hast
-[micromark]: https://github.com/micromark/micromark
-[typescript]: https://www.typescriptlang.org/
-[license]: https://github.com/ipikuka/rehype-pre-language/blob/main/LICENSE
 [markdownnpm]: https://www.npmjs.com/search?q=keywords:markdown
 
-[npm-url]: https://www.npmjs.com/package/rehype-pre-language
-[npm-image]: https://img.shields.io/npm/v/rehype-pre-language
-[github-license]: https://img.shields.io/github/license/ipikuka/rehype-pre-language
-[github-license-url]: https://github.com/ipikuka/rehype-pre-language/blob/master/LICENSE
-[github-build]: https://github.com/ipikuka/rehype-pre-language/actions/workflows/publish.yml/badge.svg
-[github-build-url]: https://github.com/ipikuka/rehype-pre-language/actions/workflows/publish.yml
-[npm-typescript]: https://img.shields.io/npm/types/rehype-pre-language
+[unified]: https://github.com/unifiedjs/unified
+[micromark]: https://github.com/micromark/micromark
+[remark]: https://github.com/remarkjs/remark
+[remarkplugins]: https://github.com/remarkjs/remark/blob/main/doc/plugins.md
+[mdast]: https://github.com/syntax-tree/mdast
+[rehype]: https://github.com/rehypejs/rehype
+[rehypeplugins]: https://github.com/rehypejs/rehype/blob/main/doc/plugins.md
+[hast]: https://github.com/syntax-tree/hast
+[typescript]: https://www.typescriptlang.org/
+
+[badge-npm-version]: https://img.shields.io/npm/v/rehype-pre-language
+[badge-npm-download]:https://img.shields.io/npm/dt/rehype-pre-language
+[npm-package-url]: https://www.npmjs.com/package/rehype-pre-language
+
+[badge-license]: https://img.shields.io/github/license/ipikuka/rehype-pre-language
+[github-license-url]: https://github.com/ipikuka/rehype-pre-language/blob/main/LICENSE
+
+[badge-build]: https://github.com/ipikuka/rehype-pre-language/actions/workflows/publish.yml/badge.svg
+[github-workflow-url]: https://github.com/ipikuka/rehype-pre-language/actions/workflows/publish.yml
+
+[badge-typescript]: https://img.shields.io/npm/types/rehype-pre-language
+[typescript-url]: https://www.typescriptlang.org/
