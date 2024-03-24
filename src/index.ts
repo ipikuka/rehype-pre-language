@@ -1,17 +1,39 @@
 import type { Plugin } from "unified";
-import type { Root } from "hast";
-import { type VisitorResult, visit } from "unist-util-visit";
-import { hasProperty } from "hast-util-has-property";
+import type { Properties, Root } from "hast";
+import { type VisitorResult, visit, CONTINUE } from "unist-util-visit";
 
 export type PreLanguageOption = string;
 
 /**
  *
- * This plugin adds language information as a property to pre element
+ * adds code language to <pre> element as a property
  *
  */
 const plugin: Plugin<[PreLanguageOption?], Root> = (option) => {
   const property = option ? (option.startsWith("on") ? option.slice(2) : option) : "className";
+
+  /**
+   *
+   * extract the language from properties
+   */
+  function getLanguage(properties: Properties): string | undefined {
+    const { className } = properties;
+
+    if (!className) return;
+
+    const filtered = (className as string[]).filter((name) => name.startsWith("language-"));
+
+    /* v8 ignore next */
+    if (!filtered.length) return;
+
+    let language = filtered[0].slice(9);
+
+    if (language.startsWith("diff-")) {
+      language = language.slice(5);
+    }
+
+    return language;
+  }
 
   /**
    * Transform.
@@ -23,41 +45,26 @@ const plugin: Plugin<[PreLanguageOption?], Root> = (option) => {
    */
   return (tree: Root): undefined => {
     visit(tree, "element", function (node, index, parent): VisitorResult {
-      if (!parent) return;
+      /* v8 ignore next */
+      if (!parent || typeof index === "undefined") return;
 
-      if (node.tagName !== "code") return;
+      if (node.tagName !== "code") return CONTINUE;
 
-      if (parent.type !== "element" || parent.tagName !== "pre") return;
+      const language = getLanguage(node.properties);
 
-      if (hasProperty(node, "className")) {
-        const filtered = (node.properties.className as string[]).filter((name) =>
-          name.startsWith("language-"),
-        );
+      if (!language) return CONTINUE;
 
-        if (filtered.length) {
-          let language = filtered[0].slice(9);
+      /* v8 ignore next */
+      if (parent.type === "root") return; // just for type narrowing
 
-          if (language.startsWith("diff-")) {
-            language = language.slice(5);
-          }
-
-          if (parent.properties) {
-            if (property === "className") {
-              if (hasProperty(parent, "className")) {
-                parent.properties["className"] = [
-                  ...(parent.properties.className as string[]),
-                  language,
-                ];
-              } else {
-                parent.properties["className"] = [language];
-              }
-            } else {
-              parent.properties[property] = language;
-            }
-          } else {
-            parent.properties = { [property]: language };
-          }
-        }
+      if (property !== "className") {
+        parent.properties[property] = language;
+      } else {
+        parent.properties.className = [
+          /* v8 ignore next */ // ignore because I couldn't create a test case
+          ...(parent.properties.className ? (parent.properties.className as string[]) : []),
+          language,
+        ];
       }
     });
   };
