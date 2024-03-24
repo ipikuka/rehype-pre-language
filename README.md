@@ -10,7 +10,7 @@
 
 This package is a [unified][unified] ([rehype][rehype]) plugin **to add language information of `<code>` element into `<pre>` element as a property**.
 
-**[unified][unified]** is a project that transforms content with abstract syntax trees (ASTs) using the new parser **[micromark][micromark]**. **[remark][remark]** adds support for markdown to unified. **[mdast][mdast]** is the Markdown Abstract Syntax Tree (AST) which is a specification for representing markdown in a syntax tree. "**rehype**" is a tool that transforms HTML with plugins. "**hast**" stands for HTML Abstract Syntax Tree (HAST) that rehype uses.
+**[unified][unified]** is a project that transforms content with abstract syntax trees (ASTs) using the new parser **[micromark][micromark]**. **[remark][remark]** adds support for markdown to unified. **[mdast][mdast]** is the Markdown Abstract Syntax Tree (AST) which is a specification for representing markdown in a syntax tree. "**[rehype][rehype]**" is a tool that transforms HTML with plugins. "**[hast][hast]**" stands for HTML Abstract Syntax Tree (HAST) that rehype uses.
 
 **This plugin finds the `<code>` elements in hast, takes the language information and adds the language into `<pre>` element as "className" property by default or as a property provided in options.**
 
