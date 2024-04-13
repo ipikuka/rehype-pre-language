@@ -1,16 +1,24 @@
 import { describe, it, expect } from "vitest";
 import dedent from "dedent";
+import * as prettier from "prettier";
 
 import { process } from "./util/index";
 
 describe("reyhpe-pre-language", () => {
+  let html: string;
+
   // ******************************************
   it("effectless for inline codes", async () => {
-    expect(String(await process("`Hi`\n\n> blockquote"))).toMatchInlineSnapshot(`
-      "<p><code>Hi</code></p>
+    html = String(await process("`Hi`\n\n> blockquote"));
+
+    expect(await prettier.format(html, { parser: "mdx" })).toMatchInlineSnapshot(`
+      "<p>
+        <code>Hi</code>
+      </p>
       <blockquote>
-      <p>blockquote</p>
-      </blockquote>"
+        <p>blockquote</p>
+      </blockquote>
+      "
     `);
   });
 
@@ -22,19 +30,31 @@ describe("reyhpe-pre-language", () => {
       \`\`\`
     `;
 
-    expect(String(await process(input))).toMatchInlineSnapshot(`
-      "<pre class="javascript"><code class="language-javascript">console.log("ipikuka");
-      </code></pre>"
+    html = String(await process(input));
+
+    expect(await prettier.format(html, { parser: "mdx" })).toMatchInlineSnapshot(`
+      "<pre class="javascript">
+        <code class="language-javascript">console.log("ipikuka");</code>
+      </pre>
+      "
     `);
 
-    expect(String(await process(input, "className"))).toMatchInlineSnapshot(`
-      "<pre class="javascript"><code class="language-javascript">console.log("ipikuka");
-      </code></pre>"
+    html = String(await process(input, "className"));
+
+    expect(await prettier.format(html, { parser: "mdx" })).toMatchInlineSnapshot(`
+      "<pre class="javascript">
+        <code class="language-javascript">console.log("ipikuka");</code>
+      </pre>
+      "
     `);
 
-    expect(String(await process(input, "data-language"))).toMatchInlineSnapshot(`
-      "<pre data-language="javascript"><code class="language-javascript">console.log("ipikuka");
-      </code></pre>"
+    html = String(await process(input, "data-language"));
+
+    expect(await prettier.format(html, { parser: "mdx" })).toMatchInlineSnapshot(`
+      "<pre data-language="javascript">
+        <code class="language-javascript">console.log("ipikuka");</code>
+      </pre>
+      "
     `);
   });
 
@@ -46,19 +66,31 @@ describe("reyhpe-pre-language", () => {
       \`\`\`
     `;
 
-    expect(String(await process(input))).toMatchInlineSnapshot(`
-      "<pre class="python"><code class="language-diff-python">print("ipikuka");
-      </code></pre>"
+    html = String(await process(input));
+
+    expect(await prettier.format(html, { parser: "mdx" })).toMatchInlineSnapshot(`
+      "<pre class="python">
+        <code class="language-diff-python">print("ipikuka");</code>
+      </pre>
+      "
     `);
 
-    expect(String(await process(input, "className"))).toMatchInlineSnapshot(`
-      "<pre class="python"><code class="language-diff-python">print("ipikuka");
-      </code></pre>"
+    html = String(await process(input, "className"));
+
+    expect(await prettier.format(html, { parser: "mdx" })).toMatchInlineSnapshot(`
+      "<pre class="python">
+        <code class="language-diff-python">print("ipikuka");</code>
+      </pre>
+      "
     `);
 
-    expect(String(await process(input, "data-language"))).toMatchInlineSnapshot(`
-      "<pre data-language="python"><code class="language-diff-python">print("ipikuka");
-      </code></pre>"
+    html = String(await process(input, "data-language"));
+
+    expect(await prettier.format(html, { parser: "mdx" })).toMatchInlineSnapshot(`
+      "<pre data-language="python">
+        <code class="language-diff-python">print("ipikuka");</code>
+      </pre>
+      "
     `);
   });
 
@@ -70,19 +102,31 @@ describe("reyhpe-pre-language", () => {
       \`\`\`
     `;
 
-    expect(String(await process(input))).toMatchInlineSnapshot(`
-      "<pre><code>content
-      </code></pre>"
+    html = String(await process(input));
+
+    expect(await prettier.format(html, { parser: "mdx" })).toMatchInlineSnapshot(`
+      "<pre>
+        <code>content</code>
+      </pre>
+      "
     `);
 
-    expect(String(await process(input, "className"))).toMatchInlineSnapshot(`
-      "<pre><code>content
-      </code></pre>"
+    html = String(await process(input, "className"));
+
+    expect(await prettier.format(html, { parser: "mdx" })).toMatchInlineSnapshot(`
+      "<pre>
+        <code>content</code>
+      </pre>
+      "
     `);
 
-    expect(String(await process(input, "data-language"))).toMatchInlineSnapshot(`
-      "<pre><code>content
-      </code></pre>"
+    html = String(await process(input, "data-language"));
+
+    expect(await prettier.format(html, { parser: "mdx" })).toMatchInlineSnapshot(`
+      "<pre>
+        <code>content</code>
+      </pre>
+      "
     `);
   });
 
@@ -94,9 +138,13 @@ describe("reyhpe-pre-language", () => {
       \`\`\`
     `;
 
-    expect(String(await process(example, "onmouseover"))).toMatchInlineSnapshot(`
-      "<pre mouseover=";alert(&#x22;alert&#x22;)"><code class="language-;alert(&#x22;alert&#x22;)">const me = "ipikuka";
-      </code></pre>"
+    html = String(await process(example, "onmouseover"));
+
+    expect(await prettier.format(html, { parser: "mdx" })).toMatchInlineSnapshot(`
+      "<pre mouseover=";alert(&#x22;alert&#x22;)">
+        <code class="language-;alert(&#x22;alert&#x22;)">const me = "ipikuka";</code>
+      </pre>
+      "
     `);
   });
 });
