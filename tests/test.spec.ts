@@ -147,4 +147,39 @@ describe("reyhpe-pre-language", () => {
       "
     `);
   });
+
+  // ******************************************
+  it("with code title and no code content", async () => {
+    const input = dedent(`
+      \`\`\`js:C:\\users\\documents
+      \`\`\`
+    `);
+
+    html = String(await process(input));
+
+    expect(await prettier.format(html, { parser: "mdx" })).toMatchInlineSnapshot(`
+      "<pre class="js">
+        <code class="language-js"></code>
+      </pre>
+      "
+    `);
+
+    html = String(await process(input, "className"));
+
+    expect(await prettier.format(html, { parser: "mdx" })).toMatchInlineSnapshot(`
+      "<pre class="js">
+        <code class="language-js"></code>
+      </pre>
+      "
+    `);
+
+    html = String(await process(input, "data-language"));
+
+    expect(await prettier.format(html, { parser: "mdx" })).toMatchInlineSnapshot(`
+      "<pre data-language="js">
+        <code class="language-js"></code>
+      </pre>
+      "
+    `);
+  });
 });
