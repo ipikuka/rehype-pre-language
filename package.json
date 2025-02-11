@@ -30,13 +30,15 @@
   },
   "keywords": [
     "unified",
-    "hast",
     "rehype",
+    "hast",
     "markdown",
+    "mdx",
     "plugin",
-    "rehype-plugin",
-    "rehype-pre",
-    "rehype-pre-language"
+    "rehype plugin",
+    "rehype pre",
+    "pre language",
+    "rehype pre language"
   ],
   "author": "ipikuka <talatkuyuk@gmail.com>",
   "license": "MIT",
@@ -52,6 +54,7 @@
     "@vitest/eslint-plugin": "^1.1.26",
     "dedent": "^1.5.3",
     "eslint": "^9.20.0",
+    "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
     "prettier": "^3.4.2",
     "rehype-stringify": "^10.0.1",
