@@ -1,16 +1,16 @@
 # rehype-pre-language
 
-[![NPM version][badge-npm-version]][npm-package-url]
-[![NPM downloads][badge-npm-download]][npm-package-url]
-[![Build][badge-build]][github-workflow-url]
-[![codecov](https://codecov.io/gh/ipikuka/rehype-pre-language/graph/badge.svg?token=o3TGkL4yUV)](https://codecov.io/gh/ipikuka/rehype-pre-language)
-[![type-coverage](https://img.shields.io/badge/dynamic/json.svg?label=type-coverage&prefix=%E2%89%A5&suffix=%&query=$.typeCoverage.atLeast&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fipikuka%2Frehype-pre-language%2Fmaster%2Fpackage.json)](https://github.com/ipikuka/rehype-pre-language)
-[![typescript][badge-typescript]][typescript-url]
-[![License][badge-license]][github-license-url]
+[![npm version][badge-npm-version]][url-npm-package]
+[![npm downloads][badge-npm-download]][url-npm-package]
+[![publish to npm][badge-publish-to-npm]][url-publish-github-actions]
+[![code-coverage][badge-codecov]][url-codecov]
+[![type-coverage][badge-type-coverage]][url-github-package]
+[![typescript][badge-typescript]][url-typescript]
+[![license][badge-license]][url-license]
 
-This package is a [unified][unified] ([rehype][rehype]) plugin **to add language information of `<code>` element into `<pre>` element as a property**.
+This package is a **[unified][unified]** (**[rehype][rehype]**) plugin **to add language information of `<code>` element into `<pre>` element as a property**.
 
-**[unified][unified]** is a project that transforms content with abstract syntax trees (ASTs) using the new parser **[micromark][micromark]**. **[remark][remark]** adds support for markdown to unified. **[mdast][mdast]** is the Markdown Abstract Syntax Tree (AST) which is a specification for representing markdown in a syntax tree. "**[rehype][rehype]**" is a tool that transforms HTML with plugins. "**[hast][hast]**" stands for HTML Abstract Syntax Tree (HAST) that rehype uses.
+**[unified][unified]** is a project that transforms content with abstract syntax trees (ASTs) using the new parser **[micromark][micromark]**. **[remark][remark]** adds support for markdown to unified. **[mdast][mdast]** is the Markdown Abstract Syntax Tree (AST) which is a specification for representing markdown in a syntax tree. **[rehype][rehype]** is a tool that transforms HTML with plugins. **[hast][hast]** stands for HTML Abstract Syntax Tree (HAST) that rehype uses.
 
 **This plugin finds the `<code>` elements in hast, takes the language information and adds the language into `<pre>` element as "className" property by default or as a property provided in options.**
 
@@ -111,7 +111,7 @@ This plugin modifies the `hast` (HTML abstract syntax tree).
 
 ## Types
 
-This package is fully typed with [TypeScript][typescript].
+This package is fully typed with [TypeScript][url-typescript].
 
 The plugin exports the type `PreLanguageOption`.
 
@@ -148,6 +148,8 @@ I like to contribute the Unified / Remark / MDX ecosystem, so I recommend you to
 
 - [`rehype-pre-language`](https://www.npmjs.com/package/rehype-pre-language)
   – Rehype plugin to add language information as a property to `pre` element
+- [`rehype-highlight-code-lines`](https://www.npmjs.com/package/rehype-highlight-code-lines)
+  – Rehype plugin to add line numbers to code blocks and allow highlighting of desired code lines
 
 ### My Recma Plugins
 
@@ -160,16 +162,6 @@ I like to contribute the Unified / Remark / MDX ecosystem, so I recommend you to
 
 [MIT License](./LICENSE) © ipikuka
 
-### Keywords
-
-🟩 [unified][unifiednpm] 🟩 [rehype][rehypenpm] 🟩 [rehype plugin][rehypepluginnpm] 🟩 [hast][hastnpm] 🟩 [markdown][markdownnpm]
-
-[unifiednpm]: https://www.npmjs.com/search?q=keywords:unified
-[rehypenpm]: https://www.npmjs.com/search?q=keywords:rehype
-[rehypepluginnpm]: https://www.npmjs.com/search?q=keywords:rehype%20plugin
-[hastnpm]: https://www.npmjs.com/search?q=keywords:hast
-[markdownnpm]: https://www.npmjs.com/search?q=keywords:markdown
-
 [unified]: https://github.com/unifiedjs/unified
 [micromark]: https://github.com/micromark/micromark
 [remark]: https://github.com/remarkjs/remark
@@ -178,17 +170,23 @@ I like to contribute the Unified / Remark / MDX ecosystem, so I recommend you to
 [rehype]: https://github.com/rehypejs/rehype
 [rehypeplugins]: https://github.com/rehypejs/rehype/blob/main/doc/plugins.md
 [hast]: https://github.com/syntax-tree/hast
-[typescript]: https://www.typescriptlang.org/
 
 [badge-npm-version]: https://img.shields.io/npm/v/rehype-pre-language
 [badge-npm-download]:https://img.shields.io/npm/dt/rehype-pre-language
-[npm-package-url]: https://www.npmjs.com/package/rehype-pre-language
+[url-npm-package]: https://www.npmjs.com/package/rehype-pre-language
+[url-github-package]: https://github.com/ipikuka/rehype-pre-language
+
 
 [badge-license]: https://img.shields.io/github/license/ipikuka/rehype-pre-language
-[github-license-url]: https://github.com/ipikuka/rehype-pre-language/blob/main/LICENSE
+[url-license]: https://github.com/ipikuka/rehype-pre-language/blob/main/LICENSE
 
-[badge-build]: https://github.com/ipikuka/rehype-pre-language/actions/workflows/publish.yml/badge.svg
-[github-workflow-url]: https://github.com/ipikuka/rehype-pre-language/actions/workflows/publish.yml
+[badge-publish-to-npm]: https://github.com/ipikuka/rehype-pre-language/actions/workflows/publish.yml/badge.svg
+[url-publish-github-actions]: https://github.com/ipikuka/rehype-pre-language/actions/workflows/publish.yml
 
 [badge-typescript]: https://img.shields.io/npm/types/rehype-pre-language
-[typescript-url]: https://www.typescriptlang.org/
+[url-typescript]: https://www.typescriptlang.org/
+
+[badge-codecov]: https://codecov.io/gh/ipikuka/rehype-pre-language/graph/badge.svg?token=o3TGkL4yUV
+[url-codecov]: https://codecov.io/gh/ipikuka/rehype-pre-language
+
+[badge-type-coverage]: https://img.shields.io/badge/dynamic/json.svg?label=type-coverage&prefix=%E2%89%A5&suffix=%&query=$.typeCoverage.atLeast&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fipikuka%2Frehype-pre-language%2Fmaster%2Fpackage.json
