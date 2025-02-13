@@ -1,12 +1,20 @@
 import type { Plugin } from "unified";
-import type { Properties, Root } from "hast";
-import { type VisitorResult, visit, CONTINUE } from "unist-util-visit";
+import type { Root } from "hast";
+import { type VisitorResult, visit } from "unist-util-visit";
 
 export type PreLanguageOption = string;
 
+// check if it is a string array
+function isStringArray(value: unknown): value is string[] {
+  return (
+    // type-coverage:ignore-next-line
+    Array.isArray(value) && value.every((item) => typeof item === "string")
+  );
+}
+
 /**
  *
- * adds code language to <pre> element as a property
+ * add code language to <pre> element as a property
  *
  */
 const plugin: Plugin<[PreLanguageOption?], Root> = (option) => {
@@ -14,23 +22,18 @@ const plugin: Plugin<[PreLanguageOption?], Root> = (option) => {
 
   /**
    *
-   * extract the language from properties
+   * get the language from classNames
+   *
    */
-  function getLanguage(properties: Properties): string | undefined {
-    const { className } = properties;
+  function getLanguage(classNames: string[]): string | undefined {
+    const isLanguageString = (element: string): boolean =>
+      element.startsWith("language-") || element.startsWith("lang-");
 
-    if (!className) return;
+    const languageString = classNames.find(isLanguageString);
 
-    const filtered = (className as string[]).filter((name) => name.startsWith("language-"));
+    if (!languageString) return;
 
-    /* v8 ignore next */
-    if (!filtered.length) return;
-
-    let language = filtered[0].slice(9);
-
-    if (language.startsWith("diff-")) {
-      language = language.slice(5);
-    }
+    const language = languageString.slice(languageString.indexOf("-") + 1).toLowerCase();
 
     return language;
   }
@@ -44,25 +47,29 @@ const plugin: Plugin<[PreLanguageOption?], Root> = (option) => {
    *   Nothing.
    */
   return (tree: Root): undefined => {
-    visit(tree, "element", function (node, index, parent): VisitorResult {
-      /* v8 ignore next */
-      if (!parent || typeof index === "undefined") return;
+    visit(tree, "element", function (code, index, parent): VisitorResult {
+      if (!parent || index === undefined || code.tagName !== "code") {
+        return;
+      }
 
-      if (node.tagName !== "code") return CONTINUE;
+      if (parent.type !== "element" || parent.tagName !== "pre") {
+        return;
+      }
 
-      const language = getLanguage(node.properties);
+      const classNames = code.properties.className;
 
-      if (!language) return CONTINUE;
+      if (!isStringArray(classNames)) return;
 
-      /* v8 ignore next */
-      if (parent.type === "root") return; // just for type narrowing
+      const language = getLanguage(classNames);
+
+      if (!language) return;
 
       if (property !== "className") {
         parent.properties[property] = language;
       } else {
         parent.properties.className = [
-          /* v8 ignore next */ // ignore because I couldn't create a test case
-          ...(parent.properties.className ? (parent.properties.className as string[]) : []),
+          /* v8 ignore next */
+          ...(isStringArray(parent.properties.className) ? parent.properties.className : []),
           language,
         ];
       }
