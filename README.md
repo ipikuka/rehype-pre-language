@@ -176,7 +176,6 @@ I like to contribute the Unified / Remark / MDX ecosystem, so I recommend you to
 [url-npm-package]: https://www.npmjs.com/package/rehype-pre-language
 [url-github-package]: https://github.com/ipikuka/rehype-pre-language
 
-
 [badge-license]: https://img.shields.io/github/license/ipikuka/rehype-pre-language
 [url-license]: https://github.com/ipikuka/rehype-pre-language/blob/main/LICENSE
 
