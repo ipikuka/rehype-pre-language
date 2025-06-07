@@ -30,7 +30,7 @@ export default tseslint.config(
   },
   {
     name: "vitest",
-    files: ["test/**/*.spec.ts"],
+    files: ["tests/**/*.spec.ts"],
     ...vitest.configs.recommended,
   },
   eslintPluginPrettierRecommended,
