@@ -16,7 +16,7 @@ This package is a **[unified][unified]** (**[rehype][rehype]**) plugin **to add 
 
 ## When should I use this?
 
-This plugin `rehype-pre-language` is useful if there is no language information in `<pre>` element but `<code>` element like `<pre><code className="language-typescript"></pre>`, and you need `<pre>` element to have language information.
+**`rehype-pre-language`** is useful if there is no language information in `<pre>` element but `<code>` element like `<pre><code className="language-typescript"></pre>`, and you need `<pre>` element to have language information.
 
 ## Installation
 
@@ -74,7 +74,7 @@ Now, running `node example.js` you see that the `<pre>` element has a "class" wi
 </pre>
 ```
 
-Without `rehype-pre-language`, the `<pre>` element wouldn't have a language information:
+Without **`rehype-pre-language`**, the `<pre>` element wouldn't have a language information:
 
 ```html
 <pre>
@@ -121,7 +121,7 @@ This plugin works with `rehype-parse` version 1+, `rehype-stringify` version 1+,
 
 ## Security
 
-Use of `rehype-pre-language` involves rehype (hast), but doesn't lead to cross-site scripting (XSS) attacks.
+Use of **`rehype-pre-language`** involves rehype (hast), but doesn't lead to cross-site scripting (XSS) attacks.
 
 ## My Plugins
 
