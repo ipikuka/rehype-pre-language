@@ -1,3 +1,11 @@
+### [Become a sponsor](https://github.com/sponsors/ipikuka) 🚀
+
+If you find **`rehype-pre-language`** useful in your projects, consider supporting my work.  
+Your sponsorship means a lot 💖
+
+Be the **first sponsor** and get featured here and on [my sponsor wall](https://github.com/sponsors/ipikuka).  
+Thank you for supporting open source! 🙌
+
 # rehype-pre-language
 
 [![npm version][badge-npm-version]][url-npm-package]
