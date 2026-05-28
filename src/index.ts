@@ -67,11 +67,12 @@ const plugin: Plugin<[PreLanguageOption?], Root> = (option) => {
       if (property !== "className") {
         parent.properties[property] = language;
       } else {
-        parent.properties.className = [
-          /* v8 ignore next */
-          ...(isStringArray(parent.properties.className) ? parent.properties.className : []),
-          language,
-        ];
+        /* v8 ignore next -- @preserve */
+        if (!isStringArray(parent.properties.className)) {
+          parent.properties.className = [];
+        }
+
+        parent.properties.className.push(language);
       }
     });
   };
