@@ -8,7 +8,7 @@ import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from "rehype-stringify";
 import type { VFileCompatible, VFile } from "vfile";
 
-import plugin, { type PreLanguageOption } from "../../src";
+import plugin, { type PreLanguageOption } from "../../src/index.js";
 
 /**
  *

@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import dedent from "dedent";
 import * as prettier from "prettier";
 
-import { processFromMarkdown, processFromHtml } from "./util/index";
+import { processFromMarkdown, processFromHtml } from "./util/index.js";
 
 describe("reyhpe-pre-language", () => {
   let html: string;
